@@ -1,13 +1,7 @@
 package com.adamzajdlik.jokebox;
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
-import android.widget.Toast;
 
-import com.adamzajdlik.Joke;
-import com.adamzajdlik.activitylibrary.Constants;
-import com.adamzajdlik.activitylibrary.JokeActivity;
 import com.adamzajdlik.jokebox.backend.myApi.MyApi;
 import com.google.api.client.extensions.android.http.AndroidHttp;
 import com.google.api.client.extensions.android.json.AndroidJsonFactory;
@@ -16,18 +10,15 @@ import com.google.api.client.googleapis.services.GoogleClientRequestInitializer;
 
 import java.io.IOException;
 
-import static android.R.attr.name;
-
 /**
  * Created by adamzajdlik on 2017-06-16.
  */
 
 public class EndpointsAsyncTask extends AsyncTask<Void, Void, String> {
     private static MyApi myApiService = null;
-    private Context context;
+    public AsyncResponse delegate = null;
 
-    public EndpointsAsyncTask(Context context) {
-        this.context = context;
+    public EndpointsAsyncTask() {
     }
 
     @Override protected String doInBackground(Void... params) {
@@ -59,8 +50,10 @@ public class EndpointsAsyncTask extends AsyncTask<Void, Void, String> {
 
     @Override
     protected void onPostExecute(String result) {
-        Intent intent = new Intent(context, JokeActivity.class);
-        intent.putExtra(Constants.TAG_JOKE_INTENT_EXTRA, result);
-        context.startActivity(intent);
+        delegate.processResponse(result);
+    }
+
+    public interface AsyncResponse {
+        void processResponse(String response);
     }
 }

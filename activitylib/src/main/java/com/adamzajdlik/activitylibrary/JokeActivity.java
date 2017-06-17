@@ -5,6 +5,11 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 public class JokeActivity extends AppCompatActivity {
+    public interface Response {
+        void viewLoaded();
+    }
+
+    public static Response responder = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,5 +25,16 @@ public class JokeActivity extends AppCompatActivity {
         }
 
         jokeView.setText(joke);
+    }
+
+    @Override protected void onStart() {
+        super.onStart();
+    }
+
+    @Override protected void onResume() {
+        super.onResume();
+        if (responder != null) {
+            responder.viewLoaded();
+        }
     }
 }

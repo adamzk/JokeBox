@@ -1,6 +1,7 @@
 package com.adamzajdlik;
 
 public class Joke {
+
     public Joke() {
     }
 
