@@ -5,6 +5,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.adamzajdlik.Joke;
+import com.adamzajdlik.jokebox.paid.MainActivity;
 
 import org.junit.Before;
 import org.junit.Rule;

@@ -4,8 +4,10 @@ buildscript {
     repositories {
         jcenter()
         mavenLocal()
+        mavenCentral()
     }
     dependencies {
+
         classpath 'com.google.gms:google-services:3.1.0'
         classpath 'com.android.tools.build:gradle:2.3.3'
 
@@ -24,4 +26,22 @@ allprojects {
 task clean(type: Delete) {
     delete rootProject.buildDir
 }
+task startServer() {
+    dependsOn 'backend:assemble'
+}
+
+task runAllTests(){
+    dependsOn 'app:test'
+    shouldRunAfter startServer
+}
+
+task stopServer() {
+    dependsOn 'backend:appengineStop'
+    mustRunAfter runAllTests
+}
+
+task startTestStop() {
+    dependsOn=['startServer', 'runAllTests', 'stopServer']
+}
+
 

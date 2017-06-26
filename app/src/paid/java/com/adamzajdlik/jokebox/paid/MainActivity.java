@@ -22,19 +22,18 @@ import com.adamzajdlik.jokebox.R;
 public class MainActivity extends AppCompatActivity implements EndpointsAsyncTask.AsyncResponse{
     private Intent intent;
     private ProgressBar progressBar;
-    private TextView instructionsView;
-    private FloatingActionButton showJokeButton;
-    private TextView loadingView;
+    View rootView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        rootView = findViewById(R.id.root_view);
+
         progressBar = (ProgressBar) findViewById(R.id.progress_bar);
-        instructionsView = (TextView) findViewById(R.id.tv_instructions);
-        showJokeButton = (FloatingActionButton) findViewById(R.id.button_joke);
-        loadingView = (TextView) findViewById(R.id.tv_loading);
+        TextView instructionsView = (TextView) findViewById(R.id.tv_instructions);
+        FloatingActionButton showJokeButton = (FloatingActionButton) findViewById(R.id.button_joke);
 
         intent = new Intent(MainActivity.this, JokeActivity.class);
     }
@@ -79,19 +78,16 @@ public class MainActivity extends AppCompatActivity implements EndpointsAsyncTas
 
     private void showLoading(){
         progressBar.setVisibility(View.VISIBLE);
-        loadingView.setVisibility(View.VISIBLE);
-        showJokeButton.setVisibility(View.GONE);
-        instructionsView.setVisibility(View.GONE);
+
     }
 
     private void showButton(){
         progressBar.setVisibility(View.GONE);
-        loadingView.setVisibility(View.GONE);
-        showJokeButton.setVisibility(View.VISIBLE);
-        instructionsView.setVisibility(View.VISIBLE);
+
     }
 
     private void showJoke(){
+
         startActivity(intent);
     }
 
